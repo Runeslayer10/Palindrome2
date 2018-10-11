@@ -5,42 +5,48 @@
  */
 
 package palindrome2;
+
 import javax.swing.*;
-/**
- *
- * @author blhad3491
- */
+
 public class Palindrome2 {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        int spacePos, palCounter = 0;
-        String palindromes = "";
-        String word = JOptionPane.showInputDialog("If a word is the "
-               + "same forward and backward, it is called a palindrome. \n"
-       +"This program is made to detect if a word is a palindrome.\n \n"+ 
-               "Please enter a sentence."+" "+"(Do not include punctiation)");
-       String sentence = "";
-       String backwardsWord = "";
-        while(sentence.length()>0){
+        String sentence, word, backwardsWord, palindromes = "";
+        int spacePos, pos, palCounter = 0;
+
+        //get the word from the user
+        sentence = JOptionPane.showInputDialog(
+                "Words that are the same forwards and backwards are called palindromes.\n"
+                + "This program determines if the words are palindromes.\n\n"
+                + "Enter a sentence(do not include a punctuation mark):");
+        sentence += " ";
+
+        //while the sentence has words in it
+        while (sentence.length() > 0) {
+            //find the first word and delete it from the sentence
             spacePos = sentence.indexOf(" ");
-            word = sentence.substring(0,spacePos);
+            word = sentence.substring(0, spacePos);
             sentence = sentence.substring(spacePos + 1, sentence.length());
-            
-            for (int pos= word.length()-1; pos >=0; pos--){  
-            backwardsWord += word.charAt(pos);
-            
+
+            //Reverse the word
+            backwardsWord = "";
+            for (pos = word.length() - 1; pos >= 0; pos--) {
+                backwardsWord += word.charAt(pos);
             }
-            if (word.equalsIgnoreCase(backwardsWord)){
-            palCounter += 1;
-            palindromes += word + ", ";
-            
+
+            //Compare the words
+            if (word.equalsIgnoreCase(backwardsWord)) {
+                palCounter += 1;
+                palindromes += word + ", ";
             }
-            else if(word != backwardsWord){
-            
-            }
+        }
+
+        JOptionPane.showMessageDialog(null, "There are " + palCounter + " palindromes in the sentence");
+
+        if (palCounter > 0) {
+            //take off the last 2 characters because there is an extra ", "
+            JOptionPane.showMessageDialog(null, "The palindromes are:\n"
+                    + palindromes.substring(0, palindromes.length() - 2));
         }
     }
 }
